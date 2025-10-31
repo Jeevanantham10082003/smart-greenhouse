@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Smart Greenhouse Dashboard</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<div class="brand">🌱 Smart Greenhouse Monitor</div>
+		<div class="status">
+			<span id="connStatus" class="badge">Connecting...</span>
+			<span id="lastUpdate" class="muted"></span>
+		</div>
+	</header>
+
+	<main class="container">
+		<section class="grid">
+			<div class="card">
+				<h3>🌡️ Temperature & Humidity (DHT11)</h3>
+				<div class="sensor-display">
+					<div class="kv"><span>Temperature:</span><strong><span id="temp">--</span> °C</strong></div>
+					<div class="kv"><span>Humidity:</span><strong><span id="hum">--</span> %</strong></div>
+					<div class="bar"><div id="humBar" class="bar-fill" style="width:0%"></div></div>
+				</div>
+			</div>
+			<div class="card">
+				<h3>💧 Soil Moisture</h3>
+				<div class="sensor-display">
+					<div class="kv"><span>Moisture Level:</span><strong><span id="soil">--</span> %</strong></div>
+					<div class="bar"><div id="soilBar" class="bar-fill" style="width:0%"></div></div>
+					<div class="status-text" id="soilStatus">--</div>
+				</div>
+			</div>
+			<div class="card">
+				<h3>☀️ Light Level (LDR)</h3>
+				<div class="sensor-display">
+					<div class="kv"><span>Light Intensity:</span><strong><span id="ldr">--</span> %</strong></div>
+					<div class="bar"><div id="ldrBar" class="bar-fill" style="width:0%"></div></div>
+					<div class="status-text" id="ldrStatus">--</div>
+				</div>
+			</div>
+			<div class="card">
+				<h3>💨 Air Quality (MQ-135)</h3>
+				<div class="sensor-display">
+					<div class="kv"><span>PPM:</span><strong><span id="mq135">--</span> ppm</strong></div>
+					<div class="chip" id="aqLabel">--</div>
+					<div class="bar"><div id="aqBar" class="bar-fill warn" style="width:0%"></div></div>
+				</div>
+			</div>
+		</section>
+
+		<section class="grid">
+			<div class="card controls-card">
+				<h3>⚡ Relay Controls</h3>
+				<div class="controls">
+					<button id="pumpBtn" class="btn off">💧 Pump: OFF</button>
+					<button id="fanBtn" class="btn off">🌪️ Fan: OFF</button>
+					<button id="lightBtn" class="btn off">💡 Light: OFF</button>
+				</div>
+				<p class="muted">Click buttons to toggle relay states</p>
+			</div>
+
+			<div class="card">
+				<h3>📺 LCD Display Control</h3>
+				<form id="lcdForm" class="lcd-form">
+					<input id="lcdText" type="text" maxlength="32" placeholder="Enter message for LCD (max 32 chars)">
+					<button class="btn" type="submit">Send to LCD</button>
+				</form>
+				<p class="muted">Send custom message to display on LCD screen</p>
+			</div>
+
+			<div class="card">
+				<h3>⚙️ Settings</h3>
+				<label class="row">
+					<span>Device IP:</span>
+					<input id="deviceIp" type="text" placeholder="127.0.0.1" value="127.0.0.1">
+				</label>
+				<label class="row">
+					<span>Port:</span>
+					<input id="devicePort" type="number" placeholder="80" value="80">
+				</label>
+				<label class="row">
+					<span>Update Interval (ms):</span>
+					<input id="pollMs" type="number" min="1000" step="500" value="3000">
+				</label>
+				<div class="controls">
+					<button id="saveCfg" class="btn">💾 Save & Reconnect</button>
+					<button id="forceRefresh" class="btn">🔄 Refresh Now</button>
+				</div>
+				<p class="muted">Configure ESP8266 connection settings</p>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<p>Smart Greenhouse Monitoring System</p>
+		<p class="muted">ESP8266 • DHT11 • Soil Sensor • LDR • MQ-135 • LCD • Relays</p>
+	</footer>
+
+	<script src="app.js"></script>
+</body>
+</html>
